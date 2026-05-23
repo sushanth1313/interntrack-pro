@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics | InternTrack Pro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page-bg">
+    <nav class="navbar glass">
+        <a class="brand" th:href="@{/dashboard}">✦ InternTrack</a>
+        <div class="nav-links">
+            <a th:href="@{/dashboard}">Overview</a>
+            <a th:href="@{/internships}">Tracker</a>
+            <a class="active" th:href="@{/analytics}">Analytics</a>
+            <form th:action="@{/logout}" method="post" class="inline-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="nav-button">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="section-heading">
+            <div>
+                <p class="mini-badge">Analytics</p>
+                <h1>Application Performance</h1>
+                <p>A clean analytics view inspired by the reference dashboard.</p>
+            </div>
+            <a class="btn" th:href="@{/internships/new}">+ Add Internship</a>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card glass">
+                <p>Total</p>
+                <h2 th:text="${total}">0</h2>
+                <span>Applications tracked</span>
+            </div>
+            <div class="stat-card glass">
+                <p>Active</p>
+                <h2 th:text="${active}">0</h2>
+                <span>Not selected/rejected</span>
+            </div>
+            <div class="stat-card glass">
+                <p>Success Rate</p>
+                <h2><span th:text="${successRate}">0</span>%</h2>
+                <span>Selections / total</span>
+            </div>
+            <div class="stat-card glass">
+                <p>Rejection Rate</p>
+                <h2><span th:text="${rejectionRate}">0</span>%</h2>
+                <span>Rejected / total</span>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="panel glass">
+                <div class="panel-header">
+                    <h2>Status Distribution</h2>
+                </div>
+
+                <div class="bar-line">
+                    <span>Applied</span>
+                    <div class="bar"><div th:style="'width:' + (${total} == 0 ? 0 : (${applied} * 100 / ${total})) + '%'"></div></div>
+                    <strong th:text="${applied}">0</strong>
+                </div>
+
+                <div class="bar-line">
+                    <span>Pending</span>
+                    <div class="bar"><div th:style="'width:' + (${total} == 0 ? 0 : (${pending} * 100 / ${total})) + '%'"></div></div>
+                    <strong th:text="${pending}">0</strong>
+                </div>
+
+                <div class="bar-line">
+                    <span>Interview</span>
+                    <div class="bar"><div th:style="'width:' + (${total} == 0 ? 0 : (${interview} * 100 / ${total})) + '%'"></div></div>
+                    <strong th:text="${interview}">0</strong>
+                </div>
+
+                <div class="bar-line">
+                    <span>Selected</span>
+                    <div class="bar"><div th:style="'width:' + (${total} == 0 ? 0 : (${selected} * 100 / ${total})) + '%'"></div></div>
+                    <strong th:text="${selected}">0</strong>
+                </div>
+
+                <div class="bar-line">
+                    <span>Rejected</span>
+                    <div class="bar"><div th:style="'width:' + (${total} == 0 ? 0 : (${rejected} * 100 / ${total})) + '%'"></div></div>
+                    <strong th:text="${rejected}">0</strong>
+                </div>
+            </div>
+
+            <div class="panel glass">
+                <div class="panel-header">
+                    <h2>Career Suggestions</h2>
+                </div>
+                <ul class="tips">
+                    <li>Keep your resume and GitHub link updated before every application.</li>
+                    <li>For every interview status, revise DSA + one strong project explanation.</li>
+                    <li>Apply early to internships with close deadlines.</li>
+                    <li>Track rejection reasons and improve your next application.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
